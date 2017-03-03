@@ -56,7 +56,7 @@ public class PowershellScript extends RemoteScript {
             OverthereUtils.write(script.getBytes(UTF_8), targetFile);
             targetFile.setExecutable(true);
 
-            CmdLine scriptCommand = CmdLine.build( this.powerShellPath, "-ExecutionPolicy", "Unrestricted", "-Inputformat", "None", "-NonInteractive", "-NoProfile", "-Command", "$ErrorActionPreference = 'Stop'; & " + targetFile.getPath() + "; if($LastExitCode) { Exit $LastExitCode; }" );
+            CmdLine scriptCommand = CmdLine.build( this.powerShellPath, "-ExecutionPolicy", "Unrestricted", "-Inputformat", "None", "-NonInteractive", "-NoProfile", "-Command", "$ErrorActionPreference = 'Stop';$WarningPreference = 'Continue'; & " + targetFile.getPath() + "; if($LastExitCode) { Exit $LastExitCode; }" );
 
             return connection.execute(stdout, stderr, scriptCommand);
         } catch (Exception e) {
